@@ -5,13 +5,27 @@ function morph(commands, unicode, defaultUPM){
     for(var i=0;i<commands.length;i++){
         var cmd = commands[i];
         var cmdProperty = Object.keys(cmd);
+
+        if (cmd.x <= 512){
+            cmd.x -= 0.1 * cmd.x;
+        }
+        else{
+            cmd.x += 0.1 * cmd.x;
+        }
+        if (cmd.y <= 512){
+            cmd.y -= 0.1 * cmd.y;
+        }
+        else{
+            cmd.y += 0.1 * cmd.y;
+        }
         for(var j=0; j<cmdProperty.length; j++){
             if(typeof commands[i][cmdProperty[j]] == 'number'){
                 var randomInt = Math.random() * (maxNumber - minNumber) + minNumber;
-                commands[i][cmdProperty[j]] += randomInt;
+                commands[i][cmdProperty[j]] += 0.01 * randomInt;
                 commands[i][cmdProperty[j]] = +(commands[i][cmdProperty[j]].toFixed(2))
             }
         }
+
     }
     //You Must return an array, first element is path commands, second element is upm(optimal)
     return [ commands ] ;
